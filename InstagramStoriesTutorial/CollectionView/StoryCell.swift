@@ -10,6 +10,7 @@ import UIKit
 
 class StoryCell: UICollectionViewCell {
     var storyImageView = UIImageView()
+    var shadowView = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,6 +20,7 @@ class StoryCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         storyImageView.image = nil
+        shadowView.alpha = 0
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -44,8 +46,15 @@ extension StoryCell {
         storyImageView.clipsToBounds = true
         storyImageView.layer.masksToBounds = true
         
-        storyImageView.image = UIImage(named: "me")
+        shadowView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(shadowView)
+        shadowView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+        shadowView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        shadowView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
+        shadowView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         
-      //  imageView.layer.transform = layer.transform
+        shadowView.backgroundColor = UIColor.black
+        shadowView.alpha = 0
+        
     }
 }

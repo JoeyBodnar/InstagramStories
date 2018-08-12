@@ -75,6 +75,8 @@ extension CollectionViewController: UIScrollViewDelegate {
                 let originalTransform3 = CGFloat(90 * M_PI / 180.0)
                 let factor2 = pageNumber > 0 ? abs(CGFloat(pageNumber) - ((currentXOffset / 320))) : (currentXOffset / 320)
                 firstCell.contentView.layer.transform = CATransform3DRotate(transform, originalTransform3 * factor2, 0, 1, 0.0)
+                
+                if let cell = lastCell as? StoryCell { cell.shadowView.alpha = factor * 0.75 }
             
             }
         } else {
