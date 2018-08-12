@@ -20,7 +20,8 @@ class CollectionViewController: UIViewController {
     }
     
     func layout() {
-        let layout = StoriesLayout()
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = UICollectionViewScrollDirection.horizontal
         collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height), collectionViewLayout: layout)
         view.addSubview(collectionView)
         collectionView.isPagingEnabled = true
@@ -28,6 +29,20 @@ class CollectionViewController: UIViewController {
         collectionView.register(StoryCell.self, forCellWithReuseIdentifier: "StoryCell")
         collectionView.dataSource = self
         collectionView.delegate = self
+    }
+}
+
+extension CollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: viewWidth, height: viewHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 }
 
@@ -57,9 +72,6 @@ extension CollectionViewController: UIScrollViewDelegate {
         
         if currentXOffset > lastXOffset {
             // scrolling right
-           
-            
-            
             if let lastCell = cells.sorted(by: {$0.frame.origin.x > $1.frame.origin.x} ).first, let firstCell =  cells.sorted(by: {$0.frame.origin.x > $1.frame.origin.x} ).last {
                 
                 let rightSideCellOriginalTransform = -CGFloat(90 * M_PI / 180.0)
@@ -77,8 +89,9 @@ extension CollectionViewController: UIScrollViewDelegate {
                 let factor2 = pageNumber > 0 ? abs(CGFloat(pageNumber) - ((currentXOffset / 320))) : (currentXOffset / 320)
                 firstCell.contentView.layer.transform = CATransform3DRotate(transform, originalTransform3 * factor2, 0, 1, 0.0)
                 
-                if let cell = lastCell as? StoryCell { cell.shadowView.alpha = factor * 0.75 }
-            
+                if let cell = lastCell as? StoryCell {
+                    cell.shadowView.alpha = factor > 0.98 ? 0 : factor * 0.75
+                }
             }
         } else {
             if let firstCell = cells.sorted(by: {$0.frame.origin.x > $1.frame.origin.x} ).last, let lastCell = cells.sorted(by: {$0.frame.origin.x > $1.frame.origin.x} ).first {
