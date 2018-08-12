@@ -10,7 +10,7 @@ import UIKit
 
 class CollectionViewController: UIViewController {
     var collectionView: UICollectionView!
-    var stories = [Story(username: "misty", imageName: "me"), Story(username: "joey", imageName: "me"), Story(username: "natthanicha", imageName: "cat"), Story(username: "stephen", imageName: "me"), Story(username: "allen", imageName: "cat")]
+    var stories = [Story(username: "misty", imageName: "me"), Story(username: "Bangkok1", imageName: "bangkok1"), Story(username: "natthanicha", imageName: "cat"), Story(username: "Bangkok2", imageName: "bangkok2"), Story(username: "allen", imageName: "cat")]
     
     var lastXOffset: CGFloat = 0
     
@@ -49,13 +49,14 @@ extension CollectionViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentXOffset = scrollView.contentOffset.x
          let pageNumber = Int(currentXOffset / 320)
+        let cells = collectionView.visibleCells
+        if cells.count == 1 { return }
+        
+        var transform = CATransform3DIdentity
+        transform.m34 = 1.0 / 1000
         
         if currentXOffset > lastXOffset {
             // scrolling right
-            let cells = collectionView.visibleCells
-            if cells.count == 1 { return }
-            var transform = CATransform3DIdentity
-            transform.m34 = 1.0 / 1000
            
             
             
@@ -80,11 +81,7 @@ extension CollectionViewController: UIScrollViewDelegate {
             
             }
         } else {
-            let cells = collectionView.visibleCells
-            if cells.count == 1 { return }
             if let firstCell = cells.sorted(by: {$0.frame.origin.x > $1.frame.origin.x} ).last, let lastCell = cells.sorted(by: {$0.frame.origin.x > $1.frame.origin.x} ).first {
-                var transform = CATransform3DIdentity
-                transform.m34 = 1.0 / 1000
                 
                 // first cell (on left)
                 firstCell.contentView.layer.anchorPoint = CGPoint(x: 1, y: 0.5)
