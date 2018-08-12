@@ -60,21 +60,22 @@ extension CollectionViewController: UIScrollViewDelegate {
             
             
             if let lastCell = cells.sorted(by: {$0.frame.origin.x > $1.frame.origin.x} ).first, let firstCell =  cells.sorted(by: {$0.frame.origin.x > $1.frame.origin.x} ).last {
+                
+                let rightSideCellOriginalTransform = -CGFloat(90 * M_PI / 180.0)
+                var factor = 1 - abs(CGFloat(pageNumber) - (currentXOffset / 320))
+                if factor == 1 { factor = 0 } 
+                // last cell (on right)
                 lastCell.contentView.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
                 lastCell.contentView.center = CGPoint(x: 0, y: view.frame.height / 2)
+                lastCell.contentView.layer.transform = CATransform3DRotate(transform, rightSideCellOriginalTransform * factor, 0, 1, 0.0)
                 
-                let originalTransform = -CGFloat(90 * M_PI / 180.0)
-                var factor = 1 - abs(CGFloat(pageNumber) - (currentXOffset / 320))
-                if factor == 1 { factor = 0 }
-                lastCell.contentView.layer.transform = CATransform3DRotate(transform, originalTransform * factor, 0, 1, 0.0)
-                
+                // first cell (on left)
                 firstCell.contentView.layer.anchorPoint = CGPoint(x: 1, y: 0.5)
                 firstCell.contentView.center = CGPoint(x: view.frame.width, y: view.frame.height / 2)
                 let originalTransform3 = CGFloat(90 * M_PI / 180.0)
                 let factor2 = pageNumber > 0 ? abs(CGFloat(pageNumber) - ((currentXOffset / 320))) : (currentXOffset / 320)
                 firstCell.contentView.layer.transform = CATransform3DRotate(transform, originalTransform3 * factor2, 0, 1, 0.0)
-                
-                print("factor2 is \(factor2)")
+            
             }
         } else {
             let cells = collectionView.visibleCells
@@ -83,31 +84,20 @@ extension CollectionViewController: UIScrollViewDelegate {
                 var transform = CATransform3DIdentity
                 transform.m34 = 1.0 / 1000
                 
+                // first cell (on left)
                 firstCell.contentView.layer.anchorPoint = CGPoint(x: 1, y: 0.5)
                 firstCell.contentView.center = CGPoint(x: view.frame.width, y: view.frame.height / 2)
                 
                 let originalTransform = CGFloat(90 * M_PI / 180.0)
-                let factor2 = currentXOffset / 320
-                let tttt = abs(CGFloat(320 * pageNumber) - currentXOffset) / 320
-                firstCell.contentView.layer.transform = CATransform3DRotate(transform, originalTransform * tttt, 0, 1, 0.0)
+                let factor2 = abs(CGFloat(320 * pageNumber) - currentXOffset) / 320
+                firstCell.contentView.layer.transform = CATransform3DRotate(transform, originalTransform * factor2, 0, 1, 0.0)
                 
-            //    print("current xOffset is \(currentXOffset)")
-             //   print("factor2 is \(factor2)")
-              //  print("tttt is \(tttt)")
-              //  print("pageNumber is \(pageNumber)")
-                
-            //    print("")
-             //   print("")
-                
-                
-                
-                
-                
+                // last cell (on right)
                 lastCell.contentView.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
                 lastCell.contentView.center = CGPoint(x: 0, y: view.frame.height / 2)
                 
                 let originalTransform2 = -CGFloat(90 * M_PI / 180.0)
-                let factor =  1 - ((currentXOffset / 320) )
+                let factor = 1 - abs(CGFloat(pageNumber) * 320 - currentXOffset) / 320
                 lastCell.contentView.layer.transform = CATransform3DRotate(transform, originalTransform2 * factor, 0, 1, 0.0)
             }
         }
