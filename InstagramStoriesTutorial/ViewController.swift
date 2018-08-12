@@ -38,7 +38,6 @@ class ViewController: UIViewController {
         scrollView.backgroundColor = UIColor.clear
         scrollView.isPagingEnabled = true
         scrollView.delegate = self
-     //   scrollView.dataSource = [Story(username: <#T##String#>, imageName: <#T##String#>)]
         
         let width = view.frame.width
         let height = view.frame.height
