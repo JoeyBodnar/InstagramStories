@@ -10,9 +10,12 @@ import UIKit
 
 class CollectionViewController: UIViewController {
     var collectionView: UICollectionView!
-    var stories = [Story(username: "misty", imageName: "me"), Story(username: "Bangkok1", imageName: "bangkok1"), Story(username: "natthanicha", imageName: "cat"), Story(username: "Bangkok2", imageName: "bangkok2"), Story(username: "allen", imageName: "cat")]
+    var stories = [Story(username: "misty", imageName: "me"), Story(username: "Bangkok1", imageName: "bangkok1"), Story(username: "natthanicha", imageName: "cat"), Story(username: "Bangkok2", imageName: "bangkok2"), Story(username: "allen", imageName: "cat"), Story(username: "misty", imageName: "me"), Story(username: "Bangkok1", imageName: "bangkok1"), Story(username: "natthanicha", imageName: "cat"), Story(username: "Bangkok2", imageName: "bangkok2"), Story(username: "allen", imageName: "cat"), Story(username: "misty", imageName: "me"), Story(username: "Bangkok1", imageName: "bangkok1"), Story(username: "natthanicha", imageName: "cat"), Story(username: "Bangkok2", imageName: "bangkok2"), Story(username: "allen", imageName: "cat")]
     
     var lastXOffset: CGFloat = 0
+    
+    let leftSideOriginalTransform = CGFloat(90 * Double.pi / 180.0)
+    let rightSideCellOriginalTransform = -CGFloat(90 * Double.pi / 180.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,91 +35,61 @@ class CollectionViewController: UIViewController {
     }
 }
 
-extension CollectionViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: viewWidth, height: viewHeight)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-}
-
-extension CollectionViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return stories.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StoryCell", for: indexPath) as? StoryCell {
-            cell.setup(with: stories[indexPath.item])
-            return cell
-        }
-        return UICollectionViewCell()
-    }
-}
-
 extension CollectionViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentXOffset = scrollView.contentOffset.x
-         let pageNumber = Int(currentXOffset / 320)
-        let cells = collectionView.visibleCells
-        if cells.count == 1 { return }
-        
+         let pageNumber = Int(currentXOffset / viewWidth)
+        let cells = collectionView.visibleCells.sorted(by: {$0.frame.origin.x > $1.frame.origin.x} )
+        if cells.count == 1 || cells.count == 0 { return }
+    
         var transform = CATransform3DIdentity
-        transform.m34 = 1.0 / 1000
+        transform.m34 = 1.0 / 900
+        
+        let rightCellAnchorPoint = CGPoint(x: 0, y: 0.5)
+        let leftCellAnchorPoint = CGPoint(x: 1, y: 0.5)
         
         if currentXOffset > lastXOffset {
             // scrolling right
-            if let lastCell = cells.sorted(by: {$0.frame.origin.x > $1.frame.origin.x} ).first, let firstCell =  cells.sorted(by: {$0.frame.origin.x > $1.frame.origin.x} ).last {
+            if let cellFurthestRight = cells.first, let cellFurthestLeft =  cells.last {
                 
-                let rightSideCellOriginalTransform = -CGFloat(90 * M_PI / 180.0)
-                var factor = 1 - abs(CGFloat(pageNumber) - (currentXOffset / 320))
+                var factor = 1 - abs(CGFloat(pageNumber) - (currentXOffset / viewWidth))
                 if factor == 1 { factor = 0 } 
                 // last cell (on right)
-                lastCell.contentView.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
-                lastCell.contentView.center = CGPoint(x: 0, y: view.frame.height / 2)
-                lastCell.contentView.layer.transform = CATransform3DRotate(transform, rightSideCellOriginalTransform * factor, 0, 1, 0.0)
+                cellFurthestRight.contentView.layer.anchorPoint = rightCellAnchorPoint
+                cellFurthestRight.contentView.center = CGPoint(x: 0, y: view.frame.height / 2)
+                cellFurthestRight.contentView.layer.transform = CATransform3DRotate(transform, rightSideCellOriginalTransform * factor, 0, 1, 0.0)
+                
+                   print(rightSideCellOriginalTransform * factor)
+                //   print(lastScrollTime)
+                //  print("")
+                
+                
                 
                 // first cell (on left)
-                firstCell.contentView.layer.anchorPoint = CGPoint(x: 1, y: 0.5)
-                firstCell.contentView.center = CGPoint(x: view.frame.width, y: view.frame.height / 2)
-                let originalTransform3 = CGFloat(90 * M_PI / 180.0)
-                let factor2 = pageNumber > 0 ? abs(CGFloat(pageNumber) - ((currentXOffset / 320))) : (currentXOffset / 320)
-                firstCell.contentView.layer.transform = CATransform3DRotate(transform, originalTransform3 * factor2, 0, 1, 0.0)
+                cellFurthestLeft.contentView.layer.anchorPoint = leftCellAnchorPoint
+                cellFurthestLeft.contentView.center = CGPoint(x: view.frame.width, y: view.frame.height / 2)
+                let factor2 = pageNumber > 0 ? abs(CGFloat(pageNumber) - ((currentXOffset / viewWidth))) : (currentXOffset / viewWidth)
+                cellFurthestLeft.contentView.layer.transform = CATransform3DRotate(transform, leftSideOriginalTransform * factor2, 0, 1, 0.0)
                 
-                if let cell = lastCell as? StoryCell {
-                    cell.shadowView.alpha = factor > 0.98 ? 0 : factor * 0.75
-                }
+          //      if let cell = cellFurthestRight as? StoryCell { cell.shadowView.alpha = factor > 0.98 ? 0 : factor * 0.75 }
             }
         } else {
-            if let firstCell = cells.sorted(by: {$0.frame.origin.x > $1.frame.origin.x} ).last, let lastCell = cells.sorted(by: {$0.frame.origin.x > $1.frame.origin.x} ).first {
+            if let cellFurthestLeft = cells.last, let cellFurthestRight = cells.first {
                 
                 // first cell (on left)
-                firstCell.contentView.layer.anchorPoint = CGPoint(x: 1, y: 0.5)
-                firstCell.contentView.center = CGPoint(x: view.frame.width, y: view.frame.height / 2)
-                
-                let originalTransform = CGFloat(90 * M_PI / 180.0)
-                let factor2 = abs(CGFloat(320 * pageNumber) - currentXOffset) / 320
-                firstCell.contentView.layer.transform = CATransform3DRotate(transform, originalTransform * factor2, 0, 1, 0.0)
+                cellFurthestLeft.contentView.layer.anchorPoint = leftCellAnchorPoint
+                cellFurthestLeft.contentView.center = CGPoint(x: view.frame.width, y: view.frame.height / 2)
+                let firstCellMultiplicationFactor = abs(CGFloat(viewWidth * CGFloat(pageNumber)) - currentXOffset) / viewWidth
+                cellFurthestLeft.contentView.layer.transform = CATransform3DRotate(transform, leftSideOriginalTransform * firstCellMultiplicationFactor, 0, 1, 0.0)
                 
                 // last cell (on right)
-                lastCell.contentView.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
-                lastCell.contentView.center = CGPoint(x: 0, y: view.frame.height / 2)
-                
-                let originalTransform2 = -CGFloat(90 * M_PI / 180.0)
-                let factor = 1 - abs(CGFloat(pageNumber) * 320 - currentXOffset) / 320
-                lastCell.contentView.layer.transform = CATransform3DRotate(transform, originalTransform2 * factor, 0, 1, 0.0)
+                cellFurthestRight.contentView.layer.anchorPoint = rightCellAnchorPoint
+                cellFurthestRight.contentView.center = CGPoint(x: 0, y: view.frame.height / 2)
+                let rightCellMultiplicationFactor = 1 - abs(CGFloat(pageNumber) * viewWidth - currentXOffset) / viewWidth
+                cellFurthestRight.contentView.layer.transform = CATransform3DRotate(transform, rightSideCellOriginalTransform * rightCellMultiplicationFactor, 0, 1, 0.0)
             }
         }
         lastXOffset = scrollView.contentOffset.x
     }
 }
 
-extension CollectionViewController: UICollectionViewDelegate {
-    
-}
