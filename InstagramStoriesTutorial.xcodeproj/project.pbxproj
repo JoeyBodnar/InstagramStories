@@ -15,6 +15,8 @@
 		D442E58921209AFD00A86E25 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D442E58821209AFD00A86E25 /* CollectionViewController.swift */; };
 		D442E58D21209C2100A86E25 /* StoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D442E58C21209C2100A86E25 /* StoryCell.swift */; };
 		D442E58F2120C44300A86E25 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D442E58E2120C44300A86E25 /* Extensions.swift */; };
+		D44BBAE22124719D0041645D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44BBAE12124719D0041645D /* ViewController.swift */; };
+		D44BBAE52124730B0041645D /* StoriesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44BBAE42124730B0041645D /* StoriesScrollView.swift */; };
 		D47CAB9A21215AFA00B66023 /* CollectionViewDelegate+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47CAB9921215AFA00B66023 /* CollectionViewDelegate+DataSource.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +31,8 @@
 		D442E58821209AFD00A86E25 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		D442E58C21209C2100A86E25 /* StoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCell.swift; sourceTree = "<group>"; };
 		D442E58E2120C44300A86E25 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D44BBAE12124719D0041645D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D44BBAE42124730B0041645D /* StoriesScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesScrollView.swift; sourceTree = "<group>"; };
 		D47CAB9921215AFA00B66023 /* CollectionViewDelegate+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionViewDelegate+DataSource.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,6 +66,8 @@
 		D442E56E211E038500A86E25 /* InstagramStoriesTutorial */ = {
 			isa = PBXGroup;
 			children = (
+				D44BBAE12124719D0041645D /* ViewController.swift */,
+				D44BBAE3212472E60041645D /* StoriesScrollView */,
 				D442E5832120954200A86E25 /* Story.swift */,
 				D442E58721209AF000A86E25 /* CollectionView */,
 				D442E56F211E038500A86E25 /* AppDelegate.swift */,
@@ -82,6 +88,14 @@
 				D47CAB9921215AFA00B66023 /* CollectionViewDelegate+DataSource.swift */,
 			);
 			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		D44BBAE3212472E60041645D /* StoriesScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				D44BBAE42124730B0041645D /* StoriesScrollView.swift */,
+			);
+			path = StoriesScrollView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,6 +173,8 @@
 				D442E58F2120C44300A86E25 /* Extensions.swift in Sources */,
 				D442E58D21209C2100A86E25 /* StoryCell.swift in Sources */,
 				D442E570211E038500A86E25 /* AppDelegate.swift in Sources */,
+				D44BBAE22124719D0041645D /* ViewController.swift in Sources */,
+				D44BBAE52124730B0041645D /* StoriesScrollView.swift in Sources */,
 				D47CAB9A21215AFA00B66023 /* CollectionViewDelegate+DataSource.swift in Sources */,
 				D442E5842120954200A86E25 /* Story.swift in Sources */,
 			);

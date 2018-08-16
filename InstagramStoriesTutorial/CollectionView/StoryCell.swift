@@ -12,17 +12,19 @@ class StoryCell: UICollectionViewCell {
     var storyImageView = UIImageView()
     var shadowView = UIView()
     var usernameLabel = UILabel()
+    var story: Story!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        layout()
+        layout(with: frame)
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         storyImageView.image = nil
-        shadowView.alpha = 0
+    //    shadowView.alpha = 0
         usernameLabel.text = nil
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,32 +32,23 @@ class StoryCell: UICollectionViewCell {
     }
     
     func setup(with story: Story) {
+        self.story = story
         storyImageView.image = UIImage(named: story.imageName)
         usernameLabel.text = story.username
+        contentView.layer.contents = UIImage(named: story.imageName)?.cgImage
+      //  layer.contents = UIImage(named: story.imageName)?.cgImage
     }
 }
 
 extension StoryCell {
-    func layout() {
+    func layout(with frame: CGRect) {
         // story image view
-        storyImageView.translatesAutoresizingMaskIntoConstraints = false
+        storyImageView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
         contentView.addSubview(storyImageView)
-        storyImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
-        storyImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        storyImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
-        storyImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         
-        storyImageView.contentMode = UIViewContentMode.scaleAspectFill
-        storyImageView.clipsToBounds = true
-        storyImageView.layer.masksToBounds = true
-        
-        // username label
-        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
+        usernameLabel.frame = CGRect(x: 30, y: 30, width: 200, height: 19)
         contentView.addSubview(usernameLabel)
-        usernameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 25).isActive = true
-        usernameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 25).isActive = true
-        usernameLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        usernameLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        
         usernameLabel.textColor = UIColor.white
         usernameLabel.layer.shadowColor = UIColor.black.cgColor
         usernameLabel.layer.shadowOpacity = 1
@@ -64,7 +57,7 @@ extension StoryCell {
         usernameLabel.font = UIFont(name: "Avenir Next", size: 21)
         
         // shadow view
-        shadowView.translatesAutoresizingMaskIntoConstraints = false
+       /* shadowView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(shadowView)
         shadowView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
         shadowView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
@@ -72,7 +65,7 @@ extension StoryCell {
         shadowView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         
         shadowView.backgroundColor = UIColor.black
-        shadowView.alpha = 0
+        shadowView.alpha = 0 */
         
     }
 }

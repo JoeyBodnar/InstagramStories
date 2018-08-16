@@ -13,6 +13,7 @@ extension CollectionViewController: UICollectionViewDelegate {
         if indexPath.item == (stories.count - 1)  { return } // because this is the last item
         let nextItem = indexPath.item + 1
         let nextCell = IndexPath(item: nextItem, section: 0)
+        lastScrollDirection = .left
         collectionView.scrollToItem(at: nextCell, at: UICollectionViewScrollPosition.left, animated: true)
     }
 }
