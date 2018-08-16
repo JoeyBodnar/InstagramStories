@@ -11,13 +11,9 @@
 		D442E575211E038500A86E25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D442E573211E038500A86E25 /* Main.storyboard */; };
 		D442E577211E038900A86E25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D442E576211E038900A86E25 /* Assets.xcassets */; };
 		D442E57A211E038900A86E25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D442E578211E038900A86E25 /* LaunchScreen.storyboard */; };
-		D442E5842120954200A86E25 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = D442E5832120954200A86E25 /* Story.swift */; };
-		D442E58921209AFD00A86E25 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D442E58821209AFD00A86E25 /* CollectionViewController.swift */; };
-		D442E58D21209C2100A86E25 /* StoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D442E58C21209C2100A86E25 /* StoryCell.swift */; };
-		D442E58F2120C44300A86E25 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D442E58E2120C44300A86E25 /* Extensions.swift */; };
-		D44BBAE22124719D0041645D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44BBAE12124719D0041645D /* ViewController.swift */; };
 		D44BBAE52124730B0041645D /* StoriesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44BBAE42124730B0041645D /* StoriesScrollView.swift */; };
-		D47CAB9A21215AFA00B66023 /* CollectionViewDelegate+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47CAB9921215AFA00B66023 /* CollectionViewDelegate+DataSource.swift */; };
+		D44BBAE721259D180041645D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44BBAE621259D180041645D /* ViewController.swift */; };
+		D44BBAEA2125CB8F0041645D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44BBAE92125CB8F0041645D /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,13 +23,9 @@
 		D442E576211E038900A86E25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D442E579211E038900A86E25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D442E57B211E038900A86E25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D442E5832120954200A86E25 /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
-		D442E58821209AFD00A86E25 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
-		D442E58C21209C2100A86E25 /* StoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCell.swift; sourceTree = "<group>"; };
-		D442E58E2120C44300A86E25 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		D44BBAE12124719D0041645D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D44BBAE42124730B0041645D /* StoriesScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesScrollView.swift; sourceTree = "<group>"; };
-		D47CAB9921215AFA00B66023 /* CollectionViewDelegate+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionViewDelegate+DataSource.swift"; sourceTree = "<group>"; };
+		D44BBAE621259D180041645D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D44BBAE92125CB8F0041645D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,28 +58,16 @@
 		D442E56E211E038500A86E25 /* InstagramStoriesTutorial */ = {
 			isa = PBXGroup;
 			children = (
-				D44BBAE12124719D0041645D /* ViewController.swift */,
+				D44BBAE82125CB820041645D /* Extensions */,
+				D44BBAE621259D180041645D /* ViewController.swift */,
 				D44BBAE3212472E60041645D /* StoriesScrollView */,
-				D442E5832120954200A86E25 /* Story.swift */,
-				D442E58721209AF000A86E25 /* CollectionView */,
 				D442E56F211E038500A86E25 /* AppDelegate.swift */,
 				D442E573211E038500A86E25 /* Main.storyboard */,
 				D442E576211E038900A86E25 /* Assets.xcassets */,
 				D442E578211E038900A86E25 /* LaunchScreen.storyboard */,
 				D442E57B211E038900A86E25 /* Info.plist */,
-				D442E58E2120C44300A86E25 /* Extensions.swift */,
 			);
 			path = InstagramStoriesTutorial;
-			sourceTree = "<group>";
-		};
-		D442E58721209AF000A86E25 /* CollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				D442E58821209AFD00A86E25 /* CollectionViewController.swift */,
-				D442E58C21209C2100A86E25 /* StoryCell.swift */,
-				D47CAB9921215AFA00B66023 /* CollectionViewDelegate+DataSource.swift */,
-			);
-			path = CollectionView;
 			sourceTree = "<group>";
 		};
 		D44BBAE3212472E60041645D /* StoriesScrollView */ = {
@@ -96,6 +76,14 @@
 				D44BBAE42124730B0041645D /* StoriesScrollView.swift */,
 			);
 			path = StoriesScrollView;
+			sourceTree = "<group>";
+		};
+		D44BBAE82125CB820041645D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D44BBAE92125CB8F0041645D /* Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,14 +157,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D442E58921209AFD00A86E25 /* CollectionViewController.swift in Sources */,
-				D442E58F2120C44300A86E25 /* Extensions.swift in Sources */,
-				D442E58D21209C2100A86E25 /* StoryCell.swift in Sources */,
 				D442E570211E038500A86E25 /* AppDelegate.swift in Sources */,
-				D44BBAE22124719D0041645D /* ViewController.swift in Sources */,
+				D44BBAEA2125CB8F0041645D /* Extensions.swift in Sources */,
 				D44BBAE52124730B0041645D /* StoriesScrollView.swift in Sources */,
-				D47CAB9A21215AFA00B66023 /* CollectionViewDelegate+DataSource.swift in Sources */,
-				D442E5842120954200A86E25 /* Story.swift in Sources */,
+				D44BBAE721259D180041645D /* ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

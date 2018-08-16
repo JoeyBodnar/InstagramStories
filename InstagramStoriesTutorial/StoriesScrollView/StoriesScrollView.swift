@@ -8,44 +8,23 @@
 
 import UIKit
 
-protocol StoriesScrollViewDelegate: UIScrollViewDelegate {
-    func didSelectItem(in column: Int)
-}
-
 class StoriesScrollView: UIScrollView {
-    var dataSource = [UIView]()
-    
-    var storiesDelegate: StoriesScrollViewDelegate? {
-        get { return self.delegate as? StoriesScrollViewDelegate }
-        set { self.delegate = newValue }
-    }
+    var stories = [UIView]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor.clear
         isPagingEnabled = true
-        
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
-        addGestureRecognizer(tapRecognizer)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    @objc func viewTapped(_ tapRecognizer: UITapGestureRecognizer) {
-        for index  in 0..<dataSource.count {
-            let view = dataSource[index]
-            if view.frame.contains((tapRecognizer.location(in: self))) {
-                storiesDelegate?.didSelectItem(in: index)
-            }
-        }
-    }
-    
-    func setDataSource(with stories: [UIImageView]) {
-        dataSource = stories
-        for i in 0..<stories.count {
-            let story = stories[i]
+    func setDataSource(with stories: [UIView]) {
+        self.stories = stories
+        for i in 0..<self.stories.count {
+            let story = self.stories[i]
             let width = frame.width
             let height = frame.height
             let xOffset = width * CGFloat(i)
@@ -58,11 +37,10 @@ class StoriesScrollView: UIScrollView {
     func visibleViews() -> [UIView] {
         let visibleRect = CGRect(x: contentOffset.x, y: 0, width: frame.width, height: frame.height)
         var views = [UIView]()
-        for view  in dataSource{
+        for view  in stories{
             if view.frame.intersects(visibleRect) { views.append(view) }
         }
         return views
     }
-    
 }
 
